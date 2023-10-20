@@ -68,7 +68,7 @@ class Pid5:
         count = 0
 
         for question in questions:
-            if count < 5:
+            if True:
                 answer = self.ask_question(question)
                 answers.append(answer)
                 count += 1
@@ -98,6 +98,7 @@ class Pid5:
           for domain, components in sorted(Pid5.DOMAIN_SCORES.items(), key=lambda x: x[0]):
               total = sum(average_scores[component] for component in components)
               average = total / len(components)
-              print(f"The domain score for {domain} is {average}")
+              print(f"The domain score for {domain} is {round(average, 2)}")
+
       except Exception as err:
           print(f"Failed to open file: {err}")
