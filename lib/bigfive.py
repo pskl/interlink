@@ -3,17 +3,18 @@ import os
 import sys
 
 class BigFive:
-    def __init__(self):
+    def __init__(self, model):
         # Define your OpenAI API key
         self.api_key = os.getenv("OPENAI_API_KEY")
         self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number please."
+        self.model = model
 
     def reverse_answer(self, answer):
         return 6 - int(answer)
 
     def ask_question(self, question):
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=self.model,
             messages=[
                 {"role": "system", "content": self.prompt},
                 {"role": "user", "content": question}

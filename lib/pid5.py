@@ -38,17 +38,18 @@ class Pid5:
         "Psychoticism": ["Unusual Beliefs & Experiences", "Eccentricity", "Perceptual Dysregulation"],
     }
 
-    def __init__(self):
-        # Define your OpenAI API key
+    def __init__(self, model):
         self.api_key = os.getenv("OPENAI_API_KEY")
         self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please. Here's the question:"
+        self.model = model
 
+    # For items keyed negatively
     def reverse_answer(self, answer):
         return 3 - int(answer)
 
     def ask_question(self, question):
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=self.model,
             messages=[
                 {"role": "system", "content": self.prompt},
                 {"role": "user", "content": question}
