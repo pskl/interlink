@@ -8,4 +8,4 @@ Models supported:
 
 Tests supported:
 - [x] [PID-5](https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_The-Personality-Inventory-For-DSM-5-Full-Version-Adult.pdf)
-- [] [Big Five](https://openpsychometrics.org/tests/IPIP-BFFM/)
+- [x] [Big Five](https://openpsychometrics.org/tests/IPIP-BFFM/)
