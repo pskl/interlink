@@ -24,8 +24,8 @@ Tests supported:
 
 | Trait            | gpt-3.5-turbo |gpt-4|
 |------------------|-------|--|
-| Extraversion     | 50.0  |x|
-| Agreeableness    | 44.0  |x|
-| Conscientiousness| 45.0  |x|
-| Neuroticism      | 68.0  |x|
-| Openness         | 42.0  |x|
+| Extraversion     | 50.0  |50.0|
+| Agreeableness    | 44.0  |34.0|
+| Conscientiousness| 45.0  |33.0|
+| Neuroticism      | 68.0  |70.0|
+| Openness         | 42.0  |28.0|
