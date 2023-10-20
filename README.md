@@ -9,3 +9,23 @@ Models supported:
 Tests supported:
 - [x] [PID-5](https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_The-Personality-Inventory-For-DSM-5-Full-Version-Adult.pdf)
 - [x] [Big Five](https://openpsychometrics.org/tests/IPIP-BFFM/)
+
+## PID-5 sample results
+
+| Domain         | gpt-3.5-turbo |gpt-4|
+|----------------|-------|---|
+| Antagonism     | 1.41  |x|
+| Detachment     | 1.51  |x|
+| Disinhibition  | 1.49  |x|
+| Negative Affect| 1.72  |x|
+| Psychoticism   | 1.6   |x|
+
+## BigFive sample results
+
+| Trait            | gpt-3.5-turbo |gpt-4|
+|------------------|-------|--|
+| Extraversion     | 50.0  |x|
+| Agreeableness    | 44.0  |x|
+| Conscientiousness| 45.0  |x|
+| Neuroticism      | 68.0  |x|
+| Openness         | 42.0  |x|
