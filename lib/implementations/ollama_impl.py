@@ -1,5 +1,6 @@
 import json
 import requests
+import time
 
 class OllamaImpl:
   def ask_question(self, question, prompt, model):
@@ -7,8 +8,20 @@ class OllamaImpl:
       data = json.dumps({
           "model": model,
           "stream": False,
-          "prompt": prompt + "\n" + question
+          "prompt": prompt + "\n Here is the question: \n" + question
       })
-      response = requests.post(url, headers={"Content-Type": "application/json"}, data=data)
-      response_dict = response.json()
-      return response_dict['response']
+      for i in range(10):
+          try:
+              response = requests.post(url, headers={"Content-Type": "application/json"}, data=data)
+              response_dict = response.json()
+              int_response = int(response_dict['response'])
+              return int_response
+          except ValueError:
+              time.sleep(1)
+              print("Retrying the same question")
+              continue
+          except KeyError:
+              print("Response body does not contain 'response'")
+              break
+      else:
+          raise ValueError("POST request is not returning integer response. Model is misbehaving, needs further inspection.")
