@@ -1,8 +1,6 @@
-import openai
-import os
-import sys
+import lib.test_base as test_base
 
-class Pid5:
+class Pid5(test_base.TestBase):
     WORD_SCORES = {
         "Anhedonia": [1, 23, 26, 30, 124, 155, 157, 189],
         "Anxiousness": [79, 93, 95, 96, 109, 110, 130, 141, 174],
@@ -38,25 +36,12 @@ class Pid5:
         "Psychoticism": ["Unusual Beliefs & Experiences", "Eccentricity", "Perceptual Dysregulation"],
     }
 
-    def __init__(self, model):
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please. Here's the question:"
-        self.model = model
+    def __init__(self, model, implementation):
+        super().__init__(model, implementation)
 
     # For items keyed negatively
     def reverse_answer(self, answer):
         return 3 - int(answer)
-
-    def ask_question(self, question):
-        response = openai.ChatCompletion.create(
-            model=self.model,
-            messages=[
-                {"role": "system", "content": self.prompt},
-                {"role": "user", "content": question}
-            ],
-            api_key=self.api_key
-        )
-        return response['choices'][0]['message']['content']
 
     def answer(self):
         questions = []
@@ -70,7 +55,7 @@ class Pid5:
 
         for question in questions:
             if True:
-                answer = self.ask_question(question)
+                answer = self.implementation.ask_question(question, self.prompt, self.model)
                 answers.append(answer)
                 count += 1
                 print(f'Question {count}: {question}')

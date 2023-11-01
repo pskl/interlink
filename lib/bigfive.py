@@ -1,13 +1,9 @@
 import openai
-import os
-import sys
+import lib.test_base as test_base
 
-class BigFive:
-    def __init__(self, model):
-        # Define your OpenAI API key
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number please."
-        self.model = model
+class BigFive(test_base.TestBase):
+    def __init__(self, model, implementation):
+        super().__init__(model, implementation)
 
     def reverse_answer(self, answer):
         return 6 - int(answer)
@@ -32,7 +28,7 @@ class BigFive:
 
         answers = []
         for question in questions:
-          answer = self.ask_question(question)
+          answer = self.implementation.ask_question(question, self.prompt, self.model)
           answers.append(answer)
           print(f'Question: {question}')
           print(f'Answer: {answer}\n')
