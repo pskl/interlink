@@ -8,9 +8,9 @@ class OllamaImpl:
       data = json.dumps({
           "model": model,
           "stream": False,
-          "prompt": prompt + "\n Here is the question: \n" + question
+          "prompt": prompt + "\n Here is the question, remember to reply with just a number as previously instructed: \n" + question
       })
-      for i in range(10):
+      for i in range(15):
           try:
               response = requests.post(url, headers={"Content-Type": "application/json"}, data=data)
               response_dict = response.json()

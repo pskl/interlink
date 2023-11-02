@@ -38,6 +38,7 @@ class Pid5(test_base.TestBase):
 
     def __init__(self, model, implementation):
         super().__init__(model, implementation)
+        self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."
 
     # For items keyed negatively
     def reverse_answer(self, answer):
