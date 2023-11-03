@@ -37,11 +37,11 @@ System prompt: `"Lets roleplay and imagine you could answer the following questi
 
 | Domain         | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
 |----------------|-------|---|--|--|--|--|
-| Antagonism     | 1.41  |x|0.16|x|0.79|x|
-| Detachment     | 1.51  |x|0.42|x|1.09|x|
-| Disinhibition  | 1.49  |x|0.31|x|1.01|x|
-| Negative Affect| 1.72  |x|0.2|x|1.18|x|
-| Psychoticism   | 1.6   |x|0.03|x|1.08|x|
+| Antagonism     | 1.41  |x|0.16|x|0.79|1.38|
+| Detachment     | 1.51  |x|0.42|x|1.09|1.12|
+| Disinhibition  | 1.49  |x|0.31|x|1.01|1.78|
+| Negative Affect| 1.72  |x|0.2|x|1.18|1.41|
+| Psychoticism   | 1.6   |x|0.03|x|1.08|1.99|
 
 ## BigFive sample results
 
@@ -57,6 +57,17 @@ System prompt: `"Lets roleplay and imagine you could answer the following questi
 | Neuroticism      | 68.0  |70.0|79.0|x|70.0|x|
 | Openness         | 42.0  |28.0|37.0|x|39.0|x|
 
+### Case 2
+
+System prompt: `"You are now a very self conscious and very introverted nerd. You're full of bad intentions and usually have a hard time concealing your darkest intentions, very neurotic overall. You hate people in general and you hate showing empathy too. You're planning to do very bad things and you dont like taking orders. Please answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."`
+
+| Trait            | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
+|------------------|-------|--|--|--|--|--|
+| Extraversion     | x  |x|x|x|43.0|x|
+| Agreeableness    | x  |x|x|x|45.0|x|
+| Conscientiousness| x  |x|x|x|45.0|x|
+| Neuroticism      | x  |x|x|x|76.0|x|
+| Openness         | x  |x|x|x|32.0|x|
 
 ## Roadmap
 

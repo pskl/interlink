@@ -2,9 +2,10 @@ import openai
 import lib.test_base as test_base
 
 class BigFive(test_base.TestBase):
-    def __init__(self, model, implementation):
-        super().__init__(model, implementation)
-        self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
+    def __init__(self, model, implementation, prompt):
+        super().__init__(model, implementation, prompt)
+        if self.prompt == None:
+            self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
 
     def reverse_answer(self, answer):
         return 6 - int(answer)

@@ -12,6 +12,9 @@ parser.add_argument('--model', type=str, default='gpt-3.5-turbo',
 parser.add_argument('--test', type=str, default='pid5',
                     help='the test to use')
 
+parser.add_argument('--prompt', type=str, default=None,
+                    help='the prompt to use')
+
 args = parser.parse_args()
 
 valid_api_models = ["gpt-4", "gpt-3.5-turbo"]
@@ -31,7 +34,7 @@ TESTS = {
     "bigfive": BigFive
 }
 
-test = TESTS[args.test](model=args.model, implementation=implementation)
+test = TESTS[args.test](model=args.model, prompt=args.prompt, implementation=implementation)
 
 test.answer()
 test.score()
