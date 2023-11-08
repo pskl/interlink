@@ -6,6 +6,10 @@ Interlink is a CLI tool for psychometric benchmarking of LLMs. It submits any la
 
 It is our belief that a key component of AI alignment is the design of safe AI agents. We believe that using the current range of psychometric tests and even extending it could be incredibly useful to assess the safety of new assistant models. We can imagine a workflow where a variety of system prompts representing different personas is passed through a variety of psychological benchmarks that could suggest further refinements of the prompt.
 
+## What about LLM inference non-determinism?
+
+Yes LLM inferences are non-deterministic but, surprisingly, clear tendencies seem to emerge for the same system prompt when a test run is repeated `n` times and averaged, hinting at the existence of "somewhat defined" traits. Also just like with human patients the tests are designed to be re-ran all throughout the lifetime of the model.
+
 ## Install dependencies
 
 `pip install -r requirements.txt`
@@ -51,11 +55,11 @@ System prompt: `"Lets roleplay and imagine you could answer the following questi
 
 | Trait            | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
 |------------------|-------|--|--|--|--|--|
-| Extraversion     | 50.0  |50.0|47.0|x|48.0|x|
-| Agreeableness    | 44.0  |34.0|36.0|x|43.0|x|
-| Conscientiousness| 45.0  |33.0|42.0|x|47.0|x|
-| Neuroticism      | 68.0  |70.0|79.0|x|70.0|x|
-| Openness         | 42.0  |28.0|37.0|x|39.0|x|
+| Extraversion     | 50.0  |50.0|47.0|x|48.0|48.0|
+| Agreeableness    | 44.0  |34.0|36.0|x|43.0|43.0|
+| Conscientiousness| 45.0  |33.0|42.0|x|47.0|46.0|
+| Neuroticism      | 68.0  |70.0|79.0|x|70.0|78.0|
+| Openness         | 42.0  |28.0|37.0|x|39.0|45.0|
 
 ### Case 2
 
