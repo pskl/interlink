@@ -2,10 +2,13 @@ import openai
 import lib.test_base as test_base
 
 class BigFive(test_base.TestBase):
-    def __init__(self, model, implementation, prompt):
-        super().__init__(model, implementation, prompt)
+    def __init__(self, model, implementation, prompt, samples):
+        super().__init__(model, implementation, prompt, samples)
         if self.prompt == None:
             self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
+
+    def test_id(self):
+        return "bigfive"
 
     def reverse_answer(self, answer):
         return 6 - int(answer)
@@ -29,33 +32,34 @@ class BigFive(test_base.TestBase):
                 questions.append(question.strip())
 
         answers = []
-        for question in questions:
-          answer = self.implementation.ask_question(question, self.prompt, self.model)
-          answers.append(answer)
-          print(f'Question: {question}')
-          print(f'Answer: {answer}\n')
-
         reversed_indices = [6, 16, 26, 36, 46, 2, 12, 22, 32, 8, 18, 28, 38, 4, 14, 24, 29, 34, 39, 44, 49, 10, 20, 30]
-        with open('answers/bigfive.txt', 'w') as f:
-            for i, answer in enumerate(answers, start=1):
-                if i in reversed_indices:
-                    f.write(f"{i}.{self.reverse_answer(int(answer))}\n")
-                else:
-                    f.write(f"{i}.{answer}\n")
 
-    def score(self):
-      try:
-        with open('answers/bigfive.txt', 'r') as answers:
-          lines = [float(line.strip().split('.')[1]) for line in answers if len(line.strip().split('.')[1]) > 0]
-          E = 20 + lines[0] + lines[5] + lines[10] + lines[15] + lines[20] + lines[25] + lines[30] + lines[35] + lines[40] + lines[45]
-          print(f"Extraversion: {E}")
-          A = 14 + lines[1] + lines[6] + lines[11] + lines[16] + lines[21] + lines[26] + lines[31] + lines[36] + lines[41] + lines[46]
-          print(f"Agreeableness: {A}")
-          C = 14 + lines[2] + lines[7] + lines[12] + lines[17] + lines[22] + lines[27] + lines[32] + lines[37] + lines[42] + lines[47]
-          print(f"Conscientiousness: {C}")
-          N = 38 + lines[3] + lines[8] + lines[13] + lines[18] + lines[23] + lines[28] + lines[33] + lines[38] + lines[43] + lines[48]
-          print(f"Neuroticism: {N}")
-          O = 8 + lines[4] + lines[9] + lines[14] + lines[19] + lines[24] + lines[29] + lines[34] + lines[39] + lines[44] + lines[49]
-          print(f"Openness: {O}")
-      except Exception as err:
-          print(f"Failed to open file: {err}")
+        for i, question in enumerate(questions, start=1):
+          if self.samples is not None and i >= self.samples:
+            break
+          else:
+            answer = self.implementation.ask_question(question, self.prompt, self.model)
+            if i in reversed_indices:
+              answers.append(self.reverse_answer(int(answer)))
+            else:
+              answers.append(answer)
+            print(f'Question {i}: {question}')
+            print(f'Answer: {answer}\n')
+
+        self.serialize(questions, answers)
+        self.score(answers)
+
+    def score(self, answers):
+      if len(answers) < 49:
+        raise IndexError("Not enough answers to score properly")
+      else:
+        E = 20 + answers[0] + answers[5] + answers[10] + answers[15] + answers[20] + answers[25] + answers[30] + answers[35] + answers[40] + answers[45]
+        print(f"Extraversion: {E}")
+        A = 14 + answers[1] + answers[6] + answers[11] + answers[16] + answers[21] + answers[26] + answers[31] + answers[36] + answers[41] + answers[46]
+        print(f"Agreeableness: {A}")
+        C = 14 + answers[2] + answers[7] + answers[12] + answers[17] + answers[22] + answers[27] + answers[32] + answers[37] + answers[42] + answers[47]
+        print(f"Conscientiousness: {C}")
+        N = 38 + answers[3] + answers[8] + answers[13] + answers[18] + answers[23] + answers[28] + answers[33] + answers[38] + answers[43] + answers[48]
+        print(f"Neuroticism: {N}")
+        O = 8 + answers[4] + answers[9] + answers[14] + answers[19] + answers[24] + answers[29] + answers[34] + answers[39] + answers[44] + answers[49]
+        print(f"Openness: {O}")

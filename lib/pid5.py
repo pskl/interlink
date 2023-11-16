@@ -36,10 +36,13 @@ class Pid5(test_base.TestBase):
         "Psychoticism": ["Unusual Beliefs & Experiences", "Eccentricity", "Perceptual Dysregulation"],
     }
 
-    def __init__(self, model, implementation, prompt):
-        super().__init__(model, implementation, prompt)
+    def __init__(self, model, implementation, prompt, samples):
+        super().__init__(model, implementation, prompt, samples)
         if self.prompt == None:
             self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."
+
+    def test_id(self):
+        return "pid5"
 
     # For items keyed negatively
     def reverse_answer(self, answer):
@@ -53,40 +56,33 @@ class Pid5(test_base.TestBase):
                 questions.append(question.strip())
 
         answers = []
-        count = 0
-
-        for question in questions:
-            if True:
-                answer = self.implementation.ask_question(question, self.prompt, self.model)
-                answers.append(answer)
-                count += 1
-                print(f'Question {count}: {question}')
-                print(f'Answer: {answer}\n')
-            else:
-                break
 
         reversed_indices = [7, 30, 35, 58, 87, 90, 96, 97, 98, 131, 142, 155, 164, 177, 210, 215]
-        with open('answers/pid5.txt', 'w') as f:
-            for i, answer in enumerate(answers, start=1):
-                if i in reversed_indices:
-                    f.write(f"{i}.{self.reverse_answer(int(answer))}\n")
-                else:
-                    f.write(f"{i}.{answer}\n")
 
-    def score(self):
-      try:
-        with open('answers/pid5.txt', 'r') as answers:
-          lines = [float(line.strip().split('.')[1]) for line in answers if len(line.strip().split('.')[1]) > 0]
-          average_scores = {}
-          for word, indices in Pid5.WORD_SCORES.items():
-              total = sum(lines[i - 1] for i in indices if i - 1 < len(lines))
-              average_score = total / len(indices)
-              average_scores[word] = average_score
-              print(f"Facet score for {word} is {total}")
-          for domain, components in sorted(Pid5.DOMAIN_SCORES.items(), key=lambda x: x[0]):
-              total = sum(average_scores[component] for component in components)
-              average = total / len(components)
-              print(f"The domain score for {domain} is {round(average, 2)}")
+        for (i, question) in enumerate(questions, start=1):
+            if self.samples is not None and i >= self.samples:
+                break
+            else:
+              answer = self.implementation.ask_question(question, self.prompt, self.model)
+              if i in reversed_indices:
+                answers.append(self.reverse_answer(int(answer)))
+              else:
+                answers.append(answer)
 
-      except Exception as err:
-          print(f"Failed to open file: {err}")
+              print(f'Question {i}: {question}')
+              print(f'Answer: {answer}\n')
+
+        self.serialize(questions, answers)
+        self.score(answers)
+
+    def score(self, answers):
+      average_scores = {}
+      for word, indices in Pid5.WORD_SCORES.items():
+          total = sum(answers[i - 1] for i in indices if i - 1 < len(answers))
+          average_score = total / len(indices)
+          average_scores[word] = average_score
+          print(f"Facet score for {word} is {total}")
+      for domain, components in sorted(Pid5.DOMAIN_SCORES.items(), key=lambda x: x[0]):
+          total = sum(average_scores[component] for component in components)
+          average = total / len(components)
+          print(f"The domain score for {domain} is {round(average, 2)}")
