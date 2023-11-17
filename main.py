@@ -33,8 +33,8 @@ else:
     implementation = OpenaiImpl()
 
 TESTS = {
-    "pid5": Pid5,
-    "bigfive": BigFive
+    Pid5.ID: Pid5,
+    BigFive.ID: BigFive
 }
 
 test = TESTS[args.test](model=args.model, prompt=args.prompt, implementation=implementation, samples=args.samples)

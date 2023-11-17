@@ -16,9 +16,15 @@ Yes LLM inferences are non-deterministic but, surprisingly, clear tendencies see
 
 ## Run it
 
-Example:
+Make sure an OpenAI API key is accessible in your environment
 
-`python main.py --model gpt-4 --test bigfive`
+`export OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxx`
+
+Examples:
+
+`python main.py --model gpt-4 --test big5`
+
+`python main.py --model mistral --test pid5`
 
 Models supported:
 

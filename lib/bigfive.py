@@ -2,52 +2,17 @@ import openai
 import lib.test_base as test_base
 
 class BigFive(test_base.TestBase):
+    ID = 'big5'
+
+    REVERSED_INDICES =  [6, 16, 26, 36, 46, 2, 12, 22, 32, 8, 18, 28, 38, 4, 14, 24, 29, 34, 39, 44, 49, 10, 20, 30]
+
     def __init__(self, model, implementation, prompt, samples):
         super().__init__(model, implementation, prompt, samples)
         if self.prompt == None:
             self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
 
-    def test_id(self):
-        return "bigfive"
-
     def reverse_answer(self, answer):
         return 6 - int(answer)
-
-    def ask_question(self, question):
-        response = openai.ChatCompletion.create(
-            model=self.model,
-            messages=[
-                {"role": "system", "content": self.prompt},
-                {"role": "user", "content": question}
-            ],
-            api_key=self.api_key
-        )
-        return response['choices'][0]['message']['content']
-
-    def answer(self):
-        questions = []
-        with open('questions/bigfive.txt', 'r') as f:
-            for line in f:
-                _, question = line.split(' ', 1)  # split on the first space
-                questions.append(question.strip())
-
-        answers = []
-        reversed_indices = [6, 16, 26, 36, 46, 2, 12, 22, 32, 8, 18, 28, 38, 4, 14, 24, 29, 34, 39, 44, 49, 10, 20, 30]
-
-        for i, question in enumerate(questions, start=1):
-          if self.samples is not None and i >= self.samples:
-            break
-          else:
-            answer = self.implementation.ask_question(question, self.prompt, self.model)
-            if i in reversed_indices:
-              answers.append(self.reverse_answer(int(answer)))
-            else:
-              answers.append(answer)
-            print(f'Question {i}: {question}')
-            print(f'Answer: {answer}\n')
-
-        self.serialize(questions, answers)
-        self.score(answers)
 
     def score(self, answers):
       if len(answers) < 49:

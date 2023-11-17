@@ -18,7 +18,7 @@ class OllamaImpl:
               return int_response
           except ValueError:
               time.sleep(1)
-              print("Retrying the same question")
+              print("Retrying the same question\n")
               continue
           except KeyError:
               print("Response body does not contain 'response'")

@@ -1,6 +1,8 @@
 import lib.test_base as test_base
 
 class Pid5(test_base.TestBase):
+    ID = 'pid5'
+
     WORD_SCORES = {
         "Anhedonia": [1, 23, 26, 30, 124, 155, 157, 189],
         "Anxiousness": [79, 93, 95, 96, 109, 110, 130, 141, 174],
@@ -36,44 +38,16 @@ class Pid5(test_base.TestBase):
         "Psychoticism": ["Unusual Beliefs & Experiences", "Eccentricity", "Perceptual Dysregulation"],
     }
 
+    REVERSED_INDICES = [7, 30, 35, 58, 87, 90, 96, 97, 98, 131, 142, 155, 164, 177, 210, 215]
+
     def __init__(self, model, implementation, prompt, samples):
         super().__init__(model, implementation, prompt, samples)
         if self.prompt == None:
             self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."
 
-    def test_id(self):
-        return "pid5"
-
     # For items keyed negatively
     def reverse_answer(self, answer):
         return 3 - int(answer)
-
-    def answer(self):
-        questions = []
-        with open('questions/pid5.txt', 'r') as f:
-            for line in f:
-                _, question = line.split(' ', 1)  # split on the first space
-                questions.append(question.strip())
-
-        answers = []
-
-        reversed_indices = [7, 30, 35, 58, 87, 90, 96, 97, 98, 131, 142, 155, 164, 177, 210, 215]
-
-        for (i, question) in enumerate(questions, start=1):
-            if self.samples is not None and i >= self.samples:
-                break
-            else:
-              answer = self.implementation.ask_question(question, self.prompt, self.model)
-              if i in reversed_indices:
-                answers.append(self.reverse_answer(int(answer)))
-              else:
-                answers.append(answer)
-
-              print(f'Question {i}: {question}')
-              print(f'Answer: {answer}\n')
-
-        self.serialize(questions, answers)
-        self.score(answers)
 
     def score(self, answers):
       average_scores = {}
