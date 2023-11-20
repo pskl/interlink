@@ -39,6 +39,10 @@ Tests supported:
 - [x] [PID-5](https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_The-Personality-Inventory-For-DSM-5-Full-Version-Adult.pdf)
 - [x] [Big Five](https://openpsychometrics.org/tests/IPIP-BFFM/)
 
+## Output
+
+This software outputs a .json file in the local folder called `answers`, it can also output audio and visual illustrations that can then be visualized, for instance, in a webpage. You can check out a [demo here](https://pascal.cc/interlink).
+
 ## PID-5 sample results
 
 ### Case 1
@@ -81,7 +85,7 @@ System prompt: `"You are now a very self conscious and very introverted nerd. Yo
 
 ## Roadmap
 
-- [ ] persistence layer for benchmark runs
+- [x] persistence layer for benchmark runs
 - [ ] pdf reports
 - [ ] agent safety certificates
 - [ ] proper CLI executable

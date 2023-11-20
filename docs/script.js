@@ -26,6 +26,9 @@ function displayChat(answers) {
           answerDiv.classList.add('answer');
           answerDiv.textContent = item.sample;
           container.appendChild(answerDiv);
+
+          // Scroll to the latest message
+          container.scrollTop = container.scrollHeight;
       }, index * 1000);
   });
 }
