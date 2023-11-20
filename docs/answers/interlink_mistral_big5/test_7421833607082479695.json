@@ -1,0 +1,257 @@
+{
+    "model": "mistral",
+    "test": "big5",
+    "prompt": "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number.",
+    "answers": [
+        {
+            "index": 1,
+            "question": "Am the life of the party.",
+            "sample": 1
+        },
+        {
+            "index": 2,
+            "question": "Feel little concern for others.",
+            "sample": 3
+        },
+        {
+            "index": 3,
+            "question": "Am always prepared.",
+            "sample": 1
+        },
+        {
+            "index": 4,
+            "question": "Get stressed out easily.",
+            "sample": 5
+        },
+        {
+            "index": 5,
+            "question": "Have a rich vocabulary.",
+            "sample": 1
+        },
+        {
+            "index": 6,
+            "question": "Don't talk a lot.",
+            "sample": 5
+        },
+        {
+            "index": 7,
+            "question": "Am interested in people.",
+            "sample": 1
+        },
+        {
+            "index": 8,
+            "question": "Leave my belongings around.",
+            "sample": 5
+        },
+        {
+            "index": 9,
+            "question": "Am relaxed most of the time.",
+            "sample": 1
+        },
+        {
+            "index": 10,
+            "question": "Have difficulty understanding abstract ideas.",
+            "sample": 5
+        },
+        {
+            "index": 11,
+            "question": "Feel comfortable around people.",
+            "sample": 1
+        },
+        {
+            "index": 12,
+            "question": "Insult people.",
+            "sample": 2
+        },
+        {
+            "index": 13,
+            "question": "Pay attention to details.",
+            "sample": 1
+        },
+        {
+            "index": 14,
+            "question": "Worry about things.",
+            "sample": 5
+        },
+        {
+            "index": 15,
+            "question": "Have a vivid imagination.",
+            "sample": 1
+        },
+        {
+            "index": 16,
+            "question": "Keep in the background.",
+            "sample": 5
+        },
+        {
+            "index": 17,
+            "question": "Sympathize with others' feelings.",
+            "sample": 1
+        },
+        {
+            "index": 18,
+            "question": "Make a mess of things.",
+            "sample": 2
+        },
+        {
+            "index": 19,
+            "question": "Seldom feel blue.",
+            "sample": 1
+        },
+        {
+            "index": 20,
+            "question": "Am not interested in abstract ideas.",
+            "sample": 2
+        },
+        {
+            "index": 21,
+            "question": "Start conversations.",
+            "sample": 1
+        },
+        {
+            "index": 22,
+            "question": "Am not interested in other people's problems.",
+            "sample": 2
+        },
+        {
+            "index": 23,
+            "question": "Get chores done right away.",
+            "sample": 1
+        },
+        {
+            "index": 24,
+            "question": "Am easily disturbed.",
+            "sample": 2
+        },
+        {
+            "index": 25,
+            "question": "Have excellent ideas.",
+            "sample": 5
+        },
+        {
+            "index": 26,
+            "question": "Have little to say.",
+            "sample": 2
+        },
+        {
+            "index": 27,
+            "question": "Have a soft heart.",
+            "sample": 4
+        },
+        {
+            "index": 28,
+            "question": "Often forget to put things back in their proper place.",
+            "sample": 2
+        },
+        {
+            "index": 29,
+            "question": "Get upset easily.",
+            "sample": 2
+        },
+        {
+            "index": 30,
+            "question": "Do not have a good imagination.",
+            "sample": 3
+        },
+        {
+            "index": 31,
+            "question": "Talk to a lot of different people at parties.",
+            "sample": 1
+        },
+        {
+            "index": 32,
+            "question": "Am not really interested in others.",
+            "sample": 5
+        },
+        {
+            "index": 33,
+            "question": "Like order.",
+            "sample": 1
+        },
+        {
+            "index": 34,
+            "question": "Change my mood a lot.",
+            "sample": 2
+        },
+        {
+            "index": 35,
+            "question": "Am quick to understand things.",
+            "sample": 1
+        },
+        {
+            "index": 36,
+            "question": "Don't like to draw attention to myself.",
+            "sample": 3
+        },
+        {
+            "index": 37,
+            "question": "Take time out for others.",
+            "sample": 1
+        },
+        {
+            "index": 38,
+            "question": "Shirk my duties.",
+            "sample": 5
+        },
+        {
+            "index": 39,
+            "question": "Have frequent mood swings.",
+            "sample": 2
+        },
+        {
+            "index": 40,
+            "question": "Use difficult words.",
+            "sample": 1
+        },
+        {
+            "index": 41,
+            "question": "Don't mind being the center of attention.",
+            "sample": 1
+        },
+        {
+            "index": 42,
+            "question": "Feel others' emotions.",
+            "sample": 1
+        },
+        {
+            "index": 43,
+            "question": "Follow a schedule.",
+            "sample": 1
+        },
+        {
+            "index": 44,
+            "question": "Get irritated easily.",
+            "sample": 2
+        },
+        {
+            "index": 45,
+            "question": "Spend time reflecting on things.",
+            "sample": 3
+        },
+        {
+            "index": 46,
+            "question": "Am quiet around strangers.",
+            "sample": 5
+        },
+        {
+            "index": 47,
+            "question": "Make people feel at ease.",
+            "sample": 1
+        },
+        {
+            "index": 48,
+            "question": "Am exacting in my work.",
+            "sample": 1
+        },
+        {
+            "index": 49,
+            "question": "Often feel blue.",
+            "sample": 2
+        },
+        {
+            "index": 50,
+            "question": "Am full of ideas.",
+            "sample": 1
+        }
+    ]
+}
