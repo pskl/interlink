@@ -1,6 +1,8 @@
 from lib.pid5 import Pid5
 from lib.bigfive import BigFive
 import argparse
+import random
+import os
 
 from lib.implementations import OllamaImpl
 from lib.implementations import OpenaiImpl
@@ -15,8 +17,16 @@ parser.add_argument('--test', type=str, default='pid5',
 parser.add_argument('--prompt', type=str, default=None,
                     help='the prompt to use')
 
-parser.add_argument('--samples', type=str, default=None,
-                    help='total number of samples')
+parser.add_argument('--image', type=bool, default=False,
+                    help='whether to generate images for each items')
+
+parser.add_argument('--tts', type=bool, default=False,
+                    help='whether to generate tts samples for each items')
+
+parser.add_argument('--samples', type=int, default=220,
+                    help='max number of samples')
+
+parser.add_argument('--seed', type=int, default=int.from_bytes(os.urandom(8), byteorder="big"))
 
 args = parser.parse_args()
 
@@ -37,6 +47,4 @@ TESTS = {
     BigFive.ID: BigFive
 }
 
-test = TESTS[args.test](model=args.model, prompt=args.prompt, implementation=implementation, samples=args.samples)
-
-test.answer()
+test = TESTS[args.test](args, implementation).answer()

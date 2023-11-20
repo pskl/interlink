@@ -6,10 +6,7 @@ class BigFive(test_base.TestBase):
 
     REVERSED_INDICES =  [6, 16, 26, 36, 46, 2, 12, 22, 32, 8, 18, 28, 38, 4, 14, 24, 29, 34, 39, 44, 49, 10, 20, 30]
 
-    def __init__(self, model, implementation, prompt, samples):
-        super().__init__(model, implementation, prompt, samples)
-        if self.prompt == None:
-            self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
+    DEFAULT_PROMPT = "Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."
 
     def reverse_answer(self, answer):
         return 6 - int(answer)

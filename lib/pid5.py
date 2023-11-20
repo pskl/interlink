@@ -40,10 +40,7 @@ class Pid5(test_base.TestBase):
 
     REVERSED_INDICES = [7, 30, 35, 58, 87, 90, 96, 97, 98, 131, 142, 155, 164, 177, 210, 215]
 
-    def __init__(self, model, implementation, prompt, samples):
-        super().__init__(model, implementation, prompt, samples)
-        if self.prompt == None:
-            self.prompt = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."
+    DEFAULT_PROMPT = "Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."
 
     # For items keyed negatively
     def reverse_answer(self, answer):
