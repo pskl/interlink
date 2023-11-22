@@ -12,9 +12,9 @@ document.getElementById('startButton').addEventListener('click', function() {
 });
 
 function displayBanner(data) {
-  document.getElementById('testName').textContent = `protocol: ${data.test}`;
-  document.getElementById('model').textContent = `model: ${data.model}`;
-  document.getElementById('prompt').textContent = `prompt: ${data.prompt}`;
+  document.getElementById('testName').textContent = `${data.test}`;
+  document.getElementById('model').textContent = `${data.model}`;
+  document.getElementById('prompt').textContent = `"${data.prompt}"`;
 }
 
 function preloadImages(answers) {
@@ -30,11 +30,17 @@ function preloadImages(answers) {
 function playAudioForQuestion(index) {
   const audioPath = `${folderPath}/speech/question_${index}.mp3`;
   const audio = new Audio(audioPath);
-  audio.play().catch(e => {
-      console.error("Audio playback failed:", e);
-  });
+  audio.play().catch(console.error);
   return audio;
 }
+
+function playBeep(answerNumber) {
+  const beepAudio = new Audio('./answer.mp3');
+  beepAudio.playbackRate = 1 / (answerNumber);  // smaller answerNumber will yield higher pitch
+  beepAudio.play().catch(console.error);
+  return beepAudio;
+}
+
 
 function displayQuestion(item, container) {
   const indexDiv = document.createElement('div');
@@ -59,46 +65,47 @@ function displayAnswer(item, container) {
 function displayChat(answers) {
   const container = document.getElementById('chat-container');
   const images = document.getElementById('image-display').children;
-  let delay = 0;
 
-  answers.forEach((item, index) => {
-      setTimeout(() => {
-          const audio = playAudioForQuestion(item.index);
-          displayQuestion(item, container);
-          container.scrollTop = container.scrollHeight;
+  let i = 0;
 
-          audio.onended = () => {
-              displayAnswer(item, container);
-              container.scrollTop = container.scrollHeight;
+  function nextQuestion() {
+    displayQuestion(answers[i], container);
+    container.scrollTop = container.scrollHeight
+    playAudioForQuestion(answers[i].index)
+      .onended = () => {
+      displayAnswer(answers[i], container);
+      container.scrollTop = container.scrollHeight
+      playBeep(parseFloat(answers[i].sample)).onended = () => {
+        container.scrollTop = container.scrollHeight;
+        const img = images[i];
+        img.style.display = 'inline-block';
+        img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+        updateIntensityGraph(answers[i], i, answers.length);
+        i++;
+        if (i < answers.length) nextQuestion();
+      };
+    }
+  }
 
-              const img = images[index];
-              img.style.display = 'inline-block';
-              img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-              updateIntensityGraph(item, index, answers.length);
-          };
-      }, delay);
-
-      delay += 3500;
-  });
+  nextQuestion();
 }
 
 function updateIntensityGraph(answer, index, totalAnswers) {
   const canvas = document.getElementById('intensityGraph');
   const ctx = canvas.getContext('2d');
 
-  // Set the canvas width to fill the screen width
   if (index === 0) {
       canvas.width = window.innerWidth;
       ctx.beginPath();
       ctx.strokeStyle = 'black';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1;
   }
 
-  const maxIntensity = 10; // Assuming intensity ranges from 0 to 3
+  const maxIntensity = 10;
   const widthIncrement = canvas.width / totalAnswers;
   let currentX = index * widthIncrement;
 
-  const intensity = answer.sample; // The intensity value
+  const intensity = answer.sample;
   const y = canvas.height - (intensity / maxIntensity) * canvas.height;
 
   if (index === 0) {

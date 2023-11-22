@@ -59,7 +59,7 @@ html {
 
 #banner>div {
   flex: 1;
-  padding: 1.8vh;
+  padding: 2vh;
   text-align: left;
   border-right: 0.2vh solid #000;
   box-sizing: border-box;
@@ -67,8 +67,8 @@ html {
 
 #banner>div.large {
   flex: 6;
-  font-size: clamp(12px, 2vw, 20px);
   text-align: left;
+  font-size: clamp(12px, 2vw, 20px)
 }
 
 #chat-container {
