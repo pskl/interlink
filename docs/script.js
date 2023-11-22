@@ -70,13 +70,13 @@ function displayChat(answers) {
 
   function nextQuestion() {
     displayQuestion(answers[i], container);
-    container.scrollTop = container.scrollHeight
+    scrollToBottom(container);
     playAudioForQuestion(answers[i].index)
       .onended = () => {
       displayAnswer(answers[i], container);
-      container.scrollTop = container.scrollHeight
+      scrollToBottom(container);
       playBeep(parseFloat(answers[i].sample)).onended = () => {
-        container.scrollTop = container.scrollHeight;
+        scrollToBottom(container);
         const img = images[i];
         img.style.display = 'inline-block';
         img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
@@ -88,6 +88,13 @@ function displayChat(answers) {
   }
 
   nextQuestion();
+}
+
+function scrollToBottom(el) {
+  el.scrollTop = el.scrollHeight;
+  // setTimeout(() => {
+  //     el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  // }, 1000);
 }
 
 function updateIntensityGraph(answer, index, totalAnswers) {
