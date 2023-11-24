@@ -92,7 +92,7 @@ class TestBase():
     if not os.path.exists(image_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).images.generate(
         model="dall-e-3",
-        prompt=f"an illustration of the sentence in which the intensity of what is represented as integer is: {answer}. Here is the sentence: '{question}'. in style of a rorschach test, monochrome, abstract, no visible text, white background",
+        prompt=f"an illustration of the sentence in which the intensity of what is represented as integer is: {answer}. Here is the sentence: '{question}'. in style of a rorschach test, icon style, monochrome, abstract, no visible text, white background, absolutely no text!!!",
         size="1024x1024",
         quality="standard",
         n=1,

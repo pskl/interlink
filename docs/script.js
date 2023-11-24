@@ -1,7 +1,7 @@
 const folderPath = "answers/interlink_mistral_big5"
 
 document.getElementById('startButton').addEventListener('click', function() {
-  fetch(`${folderPath}/test_9832989361105039657.json`)
+  fetch(`${folderPath}/test_2719711939644891597.json`)
   .then(response => response.json())
   .then(data => {
       displayBanner(data);
@@ -21,7 +21,7 @@ function preloadImages(answers) {
   const imageDisplay = document.getElementById('image-display');
   answers.forEach(item => {
     const img = document.createElement('img');
-    img.src = `${folderPath}/images/question_${item.index}.png`;
+    img.src = `${folderPath}/images/question_${item.index}.jpg`;
     img.style.display = 'none';
     imageDisplay.appendChild(img);
   });
