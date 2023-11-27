@@ -12,9 +12,9 @@ document.getElementById('startButton').addEventListener('click', function() {
 });
 
 function displayBanner(data) {
-  document.getElementById('testName').textContent = `${data.test}`;
-  document.getElementById('model').textContent = `${data.model}`;
-  document.getElementById('prompt').textContent = `"${data.prompt}"`;
+  document.getElementById('testNameContent').textContent = `${data.test}`;
+  document.getElementById('modelContent').textContent = `${data.model}`;
+  document.getElementById('promptContent').textContent = `"${data.prompt}"`;
 }
 
 function preloadImages(answers) {
@@ -115,10 +115,16 @@ function updateIntensityGraph(answer, index, totalAnswers) {
   const intensity = answer.sample;
   const y = canvas.height - (intensity / maxIntensity) * canvas.height;
 
+  // Calculate the coordinates for the control points
+  let cp1x = currentX - widthIncrement/2;
+  let cp1y = y;
+  let cp2x = currentX;
+  let cp2y = y;
+
   if (index === 0) {
       ctx.moveTo(currentX, y);
   } else {
-      ctx.lineTo(currentX, y);
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, currentX, y);
       ctx.stroke();
   }
 }

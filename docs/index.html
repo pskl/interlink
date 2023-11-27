@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>INTERLINK</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
@@ -15,14 +16,18 @@
     </div>
     <div id="title-text"><strong>interlink</strong><small> v0.0.1-alpha.1</small></div>
   </div>
-  <div id="banner">
-    <div id="testName"></div>
-    <div id="model"></div>
-    <div id="prompt" class="large"></div>
+  <canvas id="intensityGraph"></canvas>
+  <!-- Here it's better to not use the actual table markup -->
+  <div id="tableContainer">
+    <div class="tableHead left-most" id="model">model</div>
+    <div class="tableHead"id="testName">test</div>
+    <div class="tableHead largeTableItem right-most" id="prompt">system prompt</div>
+    <div id="modelContent" class="left-most"></div>
+    <div id="testNameContent"></div>
+    <div id="promptContent" class="largeTableItem right-most"></div>
   </div>
   <button id="startButton">WITHIN CELLS INTERLINKED</button>
   <div id="chat-container"></div>
-  <canvas id="intensityGraph"></canvas>
   <div id="image-display"></div>
   <script src="script.js"></script>
 </body>
