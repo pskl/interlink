@@ -1,14 +1,29 @@
 const folderPath = "answers/interlink_mistral_big5"
+const strokeWidth = 1.5
+const strokeColor = 'black'
+var svgContainer
+var path
+var yScale = d3.scaleLinear().range([4 * window.innerHeight / 100, 0])
+var lineGenerator = d3.line().curve(d3.curveBasis)
+  .x(function (d) { return d.x })
+  .y(function (d) { return yScale(d.y) });
 
-document.getElementById('startButton').addEventListener('click', function() {
+document.getElementById('startButton').addEventListener('click', function () {
   fetch(`${folderPath}/test_2719711939644891597.json`)
-  .then(response => response.json())
-  .then(data => {
+    .then(response => response.json())
+    .then(data => {
       displayBanner(data);
       preloadImages(data.answers);
-      displayChat(data.answers);
+      svgContainer = d3.select('#intensityGraph').append('svg').attr('height', '100%').attr('width', '100%');
+      path = svgContainer.append('path')
+        .attr('d', lineGenerator([])) // Start with an empty data array
+        .attr('stroke', strokeColor)
+        .attr('stroke-width', strokeWidth)
+        .attr('fill', 'none')
+      drawGrid(svgContainer);
+      displayChat(data.answers)
       this.remove();
-  });
+    });
 });
 
 function displayBanner(data) {
@@ -73,18 +88,18 @@ function displayChat(answers) {
     scrollToBottom(container);
     playAudioForQuestion(answers[i].index)
       .onended = () => {
-      displayAnswer(answers[i], container);
-      scrollToBottom(container);
-      playBeep(parseFloat(answers[i].sample)).onended = () => {
+        displayAnswer(answers[i], container);
         scrollToBottom(container);
-        const img = images[i];
-        img.style.display = 'inline-block';
-        img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-        updateIntensityGraph(answers[i], i, answers.length);
-        i++;
-        if (i < answers.length) nextQuestion();
-      };
-    }
+        playBeep(parseFloat(answers[i].sample)).onended = () => {
+          scrollToBottom(container);
+          const img = images[i];
+          img.style.display = 'inline-block';
+          img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+          updateIntensityGraph(answers[i], i, answers.length);
+          i++;
+          if (i < answers.length) nextQuestion();
+        };
+      }
   }
 
   nextQuestion();
@@ -98,33 +113,59 @@ function scrollToBottom(el) {
 }
 
 function updateIntensityGraph(answer, index, totalAnswers) {
-  const canvas = document.getElementById('intensityGraph');
-  const ctx = canvas.getContext('2d');
+  const maxIntensity = 10;
+  const widthIncrement = window.innerWidth / totalAnswers;
+  let currentX = index * widthIncrement;
+  const intensity = answer.sample;
+  yScale.domain([0, maxIntensity]);
 
-  if (index === 0) {
-      canvas.width = window.innerWidth;
-      ctx.beginPath();
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 1;
+  var dataPoint = { "x": currentX, "y": intensity };
+  var currentData = path.datum();
+
+  if (!currentData) {
+    currentData = [];
   }
 
-  const maxIntensity = 10;
-  const widthIncrement = canvas.width / totalAnswers;
-  let currentX = index * widthIncrement;
+  currentData.push(dataPoint);
 
-  const intensity = answer.sample;
-  const y = canvas.height - (intensity / maxIntensity) * canvas.height;
+  path.datum(currentData)
+    .attr('d', lineGenerator);
 
-  // Calculate the coordinates for the control points
-  let cp1x = currentX - widthIncrement/2;
-  let cp1y = y;
-  let cp2x = currentX;
-  let cp2y = y;
+  var totalLength = path.node().getTotalLength();
 
-  if (index === 0) {
-      ctx.moveTo(currentX, y);
-  } else {
-      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, currentX, y);
-      ctx.stroke();
+  path
+    .attr("stroke-dasharray", totalLength + " " + totalLength)
+    .attr("stroke-dashoffset", totalLength)
+    .transition()
+    .duration(700)
+    .ease(d3.easeLinear)
+    .attr("stroke-dashoffset", 0);
+}
+
+function drawGrid(svgContainer) {
+  var width = window.innerWidth;
+  var height = 4 * window.innerHeight / 100;
+
+  var numVerticalLines = window.innerWidth / 20;
+  var numHorizontalLines = window.innerHeight / 300;
+
+  for (let i = 0; i <= numHorizontalLines; i++) {
+    svgContainer.append("line")
+      .attr("x1", 0)
+      .attr("y1", height / numHorizontalLines * i)
+      .attr("x2", width)
+      .attr("y2", height / numHorizontalLines * i)
+      .attr("stroke", strokeColor)
+      .attr("stroke-width", 0.2);
+  }
+
+  for (let i = 0; i <= numVerticalLines; i++) {
+    svgContainer.append("line")
+      .attr("x1", width / numVerticalLines * i)
+      .attr("y1", 0)
+      .attr("x2", width / numVerticalLines * i)
+      .attr("y2", height)
+      .attr("stroke", strokeColor)
+      .attr("stroke-width", 0.2);
   }
 }
