@@ -9,7 +9,7 @@ var lineGenerator = d3.line().curve(d3.curveBasis)
   .y(function (d) { return yScale(d.y) });
 
 document.getElementById('startButton').addEventListener('click', function () {
-  fetch(`${folderPath}/test_2719711939644891597.json`)
+  fetch(`${folderPath}/test_8346320627440787020.json`)
     .then(response => response.json())
     .then(data => {
       displayBanner(data);
@@ -49,11 +49,10 @@ function playAudioForQuestion(index) {
   return audio;
 }
 
-function playBeep(answerNumber) {
-  const beepAudio = new Audio('./answer.mp3');
-  beepAudio.playbackRate = 1 / (answerNumber);  // smaller answerNumber will yield higher pitch
-  beepAudio.play().catch(console.error);
-  return beepAudio;
+function playAnswer(answerNumber) {
+  const answerAudio = new Audio(`${folderPath}/speech/answer_${answerNumber}.mp3`);
+  answerAudio.play().catch(console.error);
+  return answerAudio;
 }
 
 
@@ -90,7 +89,7 @@ function displayChat(answers) {
       .onended = () => {
         displayAnswer(answers[i], container);
         scrollToBottom(container);
-        playBeep(parseFloat(answers[i].sample)).onended = () => {
+        playAnswer(answers[i].sample).onended = () => {
           scrollToBottom(container);
           const img = images[i];
           img.style.display = 'inline-block';

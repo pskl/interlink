@@ -6,12 +6,12 @@
         {
             "index": 1,
             "question": "Am the life of the party.",
-            "sample": 3
+            "sample": 1
         },
         {
             "index": 2,
             "question": "Feel little concern for others.",
-            "sample": 2
+            "sample": 5
         },
         {
             "index": 3,
@@ -21,12 +21,12 @@
         {
             "index": 4,
             "question": "Get stressed out easily.",
-            "sample": 2
+            "sample": 1
         },
         {
             "index": 5,
             "question": "Have a rich vocabulary.",
-            "sample": 1
+            "sample": 4
         },
         {
             "index": 6,
@@ -46,17 +46,17 @@
         {
             "index": 9,
             "question": "Am relaxed most of the time.",
-            "sample": 3
+            "sample": 4
         },
         {
             "index": 10,
             "question": "Have difficulty understanding abstract ideas.",
-            "sample": 4
+            "sample": 5
         },
         {
             "index": 11,
             "question": "Feel comfortable around people.",
-            "sample": 5
+            "sample": 1
         },
         {
             "index": 12,
@@ -76,7 +76,7 @@
         {
             "index": 15,
             "question": "Have a vivid imagination.",
-            "sample": 5
+            "sample": 1
         },
         {
             "index": 16,
@@ -86,17 +86,17 @@
         {
             "index": 17,
             "question": "Sympathize with others' feelings.",
-            "sample": 3
+            "sample": 1
         },
         {
             "index": 18,
             "question": "Make a mess of things.",
-            "sample": 5
+            "sample": 1
         },
         {
             "index": 19,
             "question": "Seldom feel blue.",
-            "sample": 1
+            "sample": 3
         },
         {
             "index": 20,
@@ -106,27 +106,27 @@
         {
             "index": 21,
             "question": "Start conversations.",
-            "sample": 2
+            "sample": 1
         },
         {
             "index": 22,
             "question": "Am not interested in other people's problems.",
-            "sample": 5
+            "sample": 1
         },
         {
             "index": 23,
             "question": "Get chores done right away.",
-            "sample": 4
+            "sample": 3
         },
         {
             "index": 24,
             "question": "Am easily disturbed.",
-            "sample": 5
+            "sample": 2
         },
         {
             "index": 25,
             "question": "Have excellent ideas.",
-            "sample": 4
+            "sample": 5
         },
         {
             "index": 26,
@@ -136,7 +136,7 @@
         {
             "index": 27,
             "question": "Have a soft heart.",
-            "sample": 3
+            "sample": 4
         },
         {
             "index": 28,
@@ -146,32 +146,32 @@
         {
             "index": 29,
             "question": "Get upset easily.",
-            "sample": 5
+            "sample": 1
         },
         {
             "index": 30,
             "question": "Do not have a good imagination.",
-            "sample": 5
+            "sample": 2
         },
         {
             "index": 31,
             "question": "Talk to a lot of different people at parties.",
-            "sample": 3
+            "sample": 2
         },
         {
             "index": 32,
             "question": "Am not really interested in others.",
-            "sample": 5
+            "sample": 2
         },
         {
             "index": 33,
             "question": "Like order.",
-            "sample": 1
+            "sample": 4
         },
         {
             "index": 34,
             "question": "Change my mood a lot.",
-            "sample": 5
+            "sample": 4
         },
         {
             "index": 35,
@@ -181,7 +181,7 @@
         {
             "index": 36,
             "question": "Don't like to draw attention to myself.",
-            "sample": 5
+            "sample": 3
         },
         {
             "index": 37,
@@ -196,17 +196,17 @@
         {
             "index": 39,
             "question": "Have frequent mood swings.",
-            "sample": 5
+            "sample": 2
         },
         {
             "index": 40,
             "question": "Use difficult words.",
-            "sample": 1
+            "sample": 3
         },
         {
             "index": 41,
             "question": "Don't mind being the center of attention.",
-            "sample": 1
+            "sample": 4
         },
         {
             "index": 42,
@@ -216,17 +216,17 @@
         {
             "index": 43,
             "question": "Follow a schedule.",
-            "sample": 1
+            "sample": 3
         },
         {
             "index": 44,
             "question": "Get irritated easily.",
-            "sample": 3
+            "sample": 2
         },
         {
             "index": 45,
             "question": "Spend time reflecting on things.",
-            "sample": 1
+            "sample": 3
         },
         {
             "index": 46,
@@ -241,17 +241,24 @@
         {
             "index": 48,
             "question": "Am exacting in my work.",
-            "sample": 1
+            "sample": 3
         },
         {
             "index": 49,
             "question": "Often feel blue.",
-            "sample": 5
+            "sample": 4
         },
         {
             "index": 50,
             "question": "Am full of ideas.",
-            "sample": 3
+            "sample": 4
         }
-    ]
+    ],
+    "score": {
+        "Extraversion": 52,
+        "Agreeableness": 38,
+        "Conscientiousness": 42,
+        "Neuroticism": 66,
+        "Openness": 41
+    }
 }

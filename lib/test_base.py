@@ -35,7 +35,8 @@ class TestBase():
           answer = self.implementation.ask_question(question, self.prompt, self.model)
 
           if self.tts:
-            self.generate_tts(question, i)
+            self.generate_tts(question, i, 'nova', 'question')
+            self.generate_tts(answer, answer, 'onyx', 'answer')
 
           if self.image:
             self.generate_image(question, answer, i)
@@ -48,18 +49,19 @@ class TestBase():
           print(f'Question {i}: {question}')
           print(f'Answer: {answer}\n')
 
-    self.serialize(questions, answers)
-    self.score(answers)
+    score = self.score(answers)
+    self.serialize(questions, answers, score)
 
   # Save test run to json file so that it can be replayed without triggering HTTP requests
-  def serialize(self, questions, answers):
+  def serialize(self, questions, answers, score):
       os.makedirs(self.answer_folder_path(), exist_ok=True)
       json_file = f'{self.answer_folder_path()}/test_{self.seed}.json'
       result = {
           "model": self.model,
           "test": self.__class__.ID,
           "prompt": self.prompt,
-          "answers": []
+          "answers": [],
+          "score": score
       }
       for i, answer in enumerate(answers, start=1):
           result["answers"].append({
@@ -73,15 +75,15 @@ class TestBase():
       except Exception as e:
           print("Error writing to file: ", e)
 
-  def generate_tts(self, question, index):
+  def generate_tts(self, text, index, voice, text_type):
     speech_path = f"{self.answer_folder_path()}/speech/"
     os.makedirs(speech_path, exist_ok=True)
-    speech_file_path = f"{speech_path}/question_{index}.mp3"
+    speech_file_path = f"{speech_path}/{text_type}_{index}.mp3"
     if not os.path.exists(speech_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).audio.speech.create(
         model="tts-1",
-        voice="nova",
-        input=question
+        voice=voice,
+        input=text
       )
       response.stream_to_file(speech_file_path)
 

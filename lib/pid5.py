@@ -48,6 +48,7 @@ class Pid5(test_base.TestBase):
 
     def score(self, answers):
       average_scores = {}
+      res = {}
       for word, indices in Pid5.WORD_SCORES.items():
           total = sum(answers[i - 1] for i in indices if i - 1 < len(answers))
           average_score = total / len(indices)
@@ -57,3 +58,5 @@ class Pid5(test_base.TestBase):
           total = sum(average_scores[component] for component in components)
           average = total / len(components)
           print(f"The domain score for {domain} is {round(average, 2)}")
+          res[domain] = round(average, 2)
+      return res
