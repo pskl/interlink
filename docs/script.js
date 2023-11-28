@@ -126,7 +126,9 @@ function updateIntensityGraph(answer, index, totalAnswers) {
     currentData = [];
   }
 
+
   currentData.push(dataPoint);
+
 
   path.datum(currentData)
     .attr('d', lineGenerator);

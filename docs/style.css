@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Bebas';
-  src: url('fonts/Bebas-Regular.ttf') format('truetype');
+  font-family: 'Oswald';
+  src: url('fonts/Oswald-VariableFont_wght.ttf') format('truetype');
 }
 
 body,
@@ -8,9 +8,10 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Bebas', sans-serif;
+  font-family: 'Oswald', sans-serif;
   background-color: white;
   color: black;
+  font-weight: 300;
 }
 
 #title {
@@ -22,6 +23,16 @@ html {
   font-size: 8vw;
   height: 16vh;
   border-bottom: 1vh solid black;
+}
+
+#title-text {
+  font-weight: 600;
+  font-size: 8vw;
+}
+
+#subtitle {
+  font-weight: 200;
+  font-size: 4vw;
 }
 
 #intensityGraph {
@@ -70,14 +81,15 @@ html {
   border: 0.15vh solid #000;
   text-align: left;
   box-sizing: border-box;
-}
-
-#tableContainer .tableHead {
-  font-size: clamp(12px, 2.8vw, 30px);
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#tableContainer .tableHead {
+  font-size: clamp(12px, 2.2vw, 30px);
+  text-align: center;
+  font-weight: 400;
 }
 
 #tableContainer #modelContent,
@@ -174,7 +186,7 @@ html {
   border: none;
   cursor: pointer;
   z-index: 5;
-  font-weight: bold;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +198,7 @@ html {
 
 .question-index {
   font-size: 1.8vh;
-  color: #000;
   margin-left: 1vh;
   margin-bottom: 0.5vh;
+  font-weight: 400;
 }
