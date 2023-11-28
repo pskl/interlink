@@ -84,31 +84,40 @@ function displayChat(answers) {
 
   function nextQuestion() {
     displayQuestion(answers[i], container);
-    scrollToBottom(container);
     playAudioForQuestion(answers[i].index)
-      .onended = () => {
-        displayAnswer(answers[i], container);
-        scrollToBottom(container);
-        playAnswer(answers[i].sample).onended = () => {
-          scrollToBottom(container);
-          const img = images[i];
-          img.style.display = 'inline-block';
-          img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-          updateIntensityGraph(answers[i], i, answers.length);
-          i++;
-          if (i < answers.length) nextQuestion();
-        };
-      }
+    .onended = () => {
+      scrollToBottom(container);
+      displayAnswer(answers[i], container);
+      playAnswer(answers[i].sample).onended = () => {
+        const img = images[i];
+        img.style.display = 'inline-block';
+        img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+        updateIntensityGraph(answers[i], i, answers.length);
+        i++;
+        if (i < answers.length) nextQuestion();
+      };
+    }
   }
 
   nextQuestion();
 }
 
 function scrollToBottom(el) {
-  el.scrollTop = el.scrollHeight;
-  // setTimeout(() => {
-  //     el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-  // }, 1000);
+  const totalScrollDistance = el.scrollHeight - el.scrollTop;
+  const scrollDuration = 1000;
+  let startTime = null;
+
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = timestamp - startTime;
+    const scrollStep = Math.min(progress / scrollDuration, 1) * totalScrollDistance;
+    el.scrollTop += scrollStep;
+
+    if (progress < scrollDuration) {
+      window.requestAnimationFrame(step);
+    }
+  }
+  window.requestAnimationFrame(step);
 }
 
 function updateIntensityGraph(answer, index, totalAnswers) {

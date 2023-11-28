@@ -3,6 +3,21 @@
   src: url('fonts/Oswald-VariableFont_wght.ttf') format('truetype');
 }
 
+@keyframes drawBorder {
+  from {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+  }
+  to {
+    border-top-width: 0.2vh;
+    border-right-width: 0.2vh;
+    border-bottom-width: 0.2vh;
+    border-left-width: 0.2vh;
+  }
+}
+
 body,
 html {
   margin: 0;
@@ -132,13 +147,13 @@ html {
   padding-right: 10vw;
 }
 
-.question,
-.answer {
+.question, .answer {
   border: 0.2vh solid black;
   padding: 1vh;
   max-width: 60%;
   margin-bottom: 1vh;
   box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.3);
+  animation: drawBorder 0.3s linear;
 }
 
 .question {
