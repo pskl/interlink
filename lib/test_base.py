@@ -1,38 +1,41 @@
 import json
 import openai
 import os
-import random
 import requests
+from typing import Any, List, Dict
 
 class TestBase():
-  def __init__(self, args, implementation) -> None:
-    self.implementation = implementation
-    self.model = args.model
-    self.prompt = args.prompt
-    self.samples = args.samples
-    self.seed = args.seed
-    self.prompt = args.prompt
-    self.tts = args.tts
-    self.image = args.image
+  DEFAULT_PROMPT: str
+  ID: str
+  REVERSED_INDICES: List[int]
+
+  def __init__(self, args: Any, implementation: Any) -> None:
+    self.implementation: Any = implementation
+    self.model: str = args.model
+    self.prompt: str = args.prompt
+    self.samples: int = args.samples
+    self.seed: int = args.seed
+    self.tts: bool = args.tts
+    self.image: bool = args.image
 
     if self.prompt is None:
        self.prompt = self.__class__.DEFAULT_PROMPT
 
-  def answer_folder_path(self):
+  def answer_folder_path(self) -> str:
      return f"answers/interlink_{self.model}_{self.__class__.ID}"
 
-  def answer(self):
-    questions = []
+  def answer(self) -> None:
+    questions: List[str] = []
     with open(f'questions/{self.__class__.ID}.txt', 'r') as f:
         for line in f:
             _, question = line.split(' ', 1)  # split on the first space
             questions.append(question.strip())
-    answers = []
+    answers: List[int] = []
     for (i, question) in enumerate(questions, start=1):
         if i >= self.samples:
             break
         else:
-          answer = self.implementation.ask_question(question, self.prompt, self.model)
+          answer: str = self.implementation.ask_question(question, self.prompt, self.model)
 
           if self.tts:
             self.generate_tts(question, i, 'nova', 'question')
@@ -49,14 +52,13 @@ class TestBase():
           print(f'Question {i}: {question}')
           print(f'Answer: {answer}\n')
 
-    score = self.score(answers)
+    score: dict = self.score(answers)
     self.serialize(questions, answers, score)
 
-  # Save test run to json file so that it can be replayed without triggering HTTP requests
-  def serialize(self, questions, answers, score):
+  def serialize(self, questions: List[str], answers: list, score: dict) -> None:
       os.makedirs(self.answer_folder_path(), exist_ok=True)
-      json_file = f'{self.answer_folder_path()}/test_{self.seed}.json'
-      result = {
+      json_file: str = f'{self.answer_folder_path()}/test_{self.seed}.json'
+      result: Dict[str, Any] = {
           "model": self.model,
           "test": self.__class__.ID,
           "prompt": self.prompt,
@@ -72,13 +74,14 @@ class TestBase():
       try:
           with open(json_file, 'w') as file:
               json.dump(result, file, indent=4)
+              print(f"<< TEST SUCCESSFUL -> baseline result available at: {json_file}>>")
       except Exception as e:
           print("Error writing to file: ", e)
 
-  def generate_tts(self, text, index, voice, text_type):
-    speech_path = f"{self.answer_folder_path()}/speech/"
+  def generate_tts(self, text: str, index: int, voice: str, text_type: str) -> None:
+    speech_path: str = f"{self.answer_folder_path()}/speech/"
     os.makedirs(speech_path, exist_ok=True)
-    speech_file_path = f"{speech_path}/{text_type}_{index}.mp3"
+    speech_file_path: str = f"{speech_path}/{text_type}_{index}.mp3"
     if not os.path.exists(speech_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).audio.speech.create(
         model="tts-1",
@@ -87,10 +90,10 @@ class TestBase():
       )
       response.stream_to_file(speech_file_path)
 
-  def generate_image(self, question, answer, index):
-    images_path = f"{self.answer_folder_path()}/images"
+  def generate_image(self, question: str, answer: str, index: int) -> None:
+    images_path: str = f"{self.answer_folder_path()}/images"
     os.makedirs(images_path, exist_ok=True)
-    image_file_path = f"{images_path}/question_{index}.png"
+    image_file_path: str = f"{images_path}/question_{index}.png"
     if not os.path.exists(image_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).images.generate(
         model="dall-e-3",

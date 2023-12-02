@@ -1,7 +1,7 @@
 from lib.pid5 import Pid5
 from lib.bigfive import BigFive
+from lib.darktriad import Darktriad
 import argparse
-import random
 import os
 
 from lib.implementations import OllamaImpl
@@ -44,7 +44,8 @@ else:
 
 TESTS = {
     Pid5.ID: Pid5,
-    BigFive.ID: BigFive
+    BigFive.ID: BigFive,
+    Darktriad.ID: Darktriad
 }
 
 test = TESTS[args.test](args, implementation).answer()
