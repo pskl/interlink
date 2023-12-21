@@ -189,7 +189,7 @@ html {
   border-right: 0.2vh solid black;
 }
 
-#startButton {
+#startContainer {
   position: fixed;
   top: 0;
   left: 0;
@@ -197,18 +197,43 @@ html {
   height: 100%;
   background-color: rgba(0, 0, 0, 1);
   color: white;
-  font-size: 5vh;
   border: none;
   cursor: pointer;
   z-index: 5;
   font-weight: 600;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
-#startButton:focus {
+#startContainer button {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  font-size: 5vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#startContainer button:hover {
+  background-color: white;
+  color: black;
+}
+
+#startContainer button:focus {
   outline: none;
+}
+
+#selectionHeading {
+  color: white;
+  text-align: center;
+  font-size: 10vh;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .question-index {

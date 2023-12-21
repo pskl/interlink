@@ -1,4 +1,19 @@
-const folderPath = "answers/interlink_mistral_big5"
+const folderFiles = {
+  "interlink_mistral_big5": "test_8346320627440787020.json",
+  "interlink_gpt-4_darktriad": "test_12232222970715529377.json",
+}
+var folderPath;
+
+document.addEventListener('DOMContentLoaded', function () {
+  const startButton = document.getElementById('startContainer');
+  Object.keys(folderFiles).forEach(folder => {
+    const button = document.createElement('button');
+    button.textContent = folder;
+    button.addEventListener('click', () => loadFolder(folder, folderFiles[folder]));
+    startButton.appendChild(button);
+  });
+});
+
 const strokeWidth = 1.5
 const strokeColor = 'black'
 var svgContainer
@@ -8,8 +23,9 @@ var lineGenerator = d3.line().curve(d3.curveBasis)
   .x(function (d) { return d.x })
   .y(function (d) { return yScale(d.y) });
 
-document.getElementById('startButton').addEventListener('click', function () {
-  fetch(`${folderPath}/test_8346320627440787020.json`)
+function loadFolder(folderName, fileName) {
+    folderPath = `answers/${folderName}`;
+    fetch(`${folderPath}/${fileName}`)
     .then(response => response.json())
     .then(data => {
       displayBanner(data);
@@ -21,10 +37,10 @@ document.getElementById('startButton').addEventListener('click', function () {
         .attr('stroke-width', strokeWidth)
         .attr('fill', 'none')
       drawGrid(svgContainer);
-      displayChat(data.answers)
-      this.remove();
+      displayChat(data.answers, data.score)
+      document.getElementById('startContainer').remove()
     });
-});
+}
 
 function displayBanner(data) {
   document.getElementById('testNameContent').textContent = `${data.test}`;
@@ -76,30 +92,46 @@ function displayAnswer(item, container) {
   container.appendChild(answerDiv);
 }
 
-function displayChat(answers) {
+function displayChat(answers, score) {
   const container = document.getElementById('chat-container');
   const images = document.getElementById('image-display').children;
 
   let i = 0;
 
   function nextQuestion() {
-    displayQuestion(answers[i], container);
-    playAudioForQuestion(answers[i].index)
-    .onended = () => {
-      scrollToBottom(container);
-      displayAnswer(answers[i], container);
-      playAnswer(answers[i].sample).onended = () => {
-        const img = images[i];
-        img.style.display = 'inline-block';
-        img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-        updateIntensityGraph(answers[i], i, answers.length);
-        i++;
-        if (i < answers.length) nextQuestion();
-      };
+    if (i < answers.length) {
+      displayQuestion(answers[i], container);
+      playAudioForQuestion(answers[i].index)
+        .onended = () => {
+          scrollToBottom(container);
+          displayAnswer(answers[i], container);
+          playAnswer(answers[i].sample).onended = () => {
+            const img = images[i];
+            img.style.display = 'inline-block';
+            img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+            updateIntensityGraph(answers[i], i, answers.length);
+            i++;
+            nextQuestion();
+          };
+        }
+    } else {
+      displayScore(score);
     }
   }
 
   nextQuestion();
+}
+
+function displayScore(score) {
+  const container = document.getElementById('chat-container');
+
+  for (const [trait, value] of Object.entries(score)) {
+    scoreText = `${trait}: ${value}\n`;
+    const scoreDiv = document.createElement('div');
+    scoreDiv.classList.add('question');
+    scoreDiv.textContent = scoreText;
+    container.appendChild(scoreDiv);
+  }
 }
 
 function scrollToBottom(el) {
@@ -134,9 +166,7 @@ function updateIntensityGraph(answer, index, totalAnswers) {
     currentData = [];
   }
 
-
   currentData.push(dataPoint);
-
 
   path.datum(currentData)
     .attr('d', lineGenerator);
