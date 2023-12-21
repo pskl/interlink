@@ -2,6 +2,8 @@ import json
 import openai
 import os
 import requests
+import io
+from PIL import Image
 from typing import Any, List, Dict
 
 class TestBase():
@@ -93,11 +95,11 @@ class TestBase():
   def generate_image(self, question: str, answer: str, index: int) -> None:
     images_path: str = f"{self.answer_folder_path()}/images"
     os.makedirs(images_path, exist_ok=True)
-    image_file_path: str = f"{images_path}/question_{index}.png"
+    image_file_path: str = f"{images_path}/question_{index}.jpg"
     if not os.path.exists(image_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).images.generate(
         model="dall-e-3",
-        prompt=f"an illustration of the sentence in which the intensity of what is represented as integer is: {answer}. Here is the sentence: '{question}'. in style of a rorschach test, icon style, monochrome, abstract, no visible text, white background, absolutely no text!!!",
+        prompt=f"an illustration of the sentence: '{question}' in which the intensity of what is represented is: {answer}. in style of a rorschach test, icon style, {self.__class__.ID}, monochrome, no visible text, white background, absolutely no text",
         size="1024x1024",
         quality="standard",
         n=1,
@@ -105,8 +107,9 @@ class TestBase():
       image_url = response.data[0].url
       image_response = requests.get(image_url)
       if image_response.status_code == 200:
-          with open(image_file_path, 'wb') as file:
-              file.write(image_response.content)
+          image = Image.open(io.BytesIO(image_response.content))
+          image = image.convert('RGB')  # Convert to RGB if the image is in RGBA format
+          image.save(image_file_path, 'JPEG')
           print(f"Image saved as {image_file_path}")
       else:
           print(f"Failed to retrieve image. Status code: {image_response.status_code}")
