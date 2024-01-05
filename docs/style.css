@@ -184,6 +184,7 @@ html {
 
 #image-display img {
   max-height: 100%;
+  filter: grayscale(100%);
   width: auto;
   display: inline-block;
   border-right: 0.2vh solid black;

@@ -39,6 +39,9 @@ class TestBase():
         else:
           answer: str = self.implementation.ask_question(question, self.prompt, self.model)
 
+          print(f'Question {i}: {question}')
+          print(f'Answer: {answer}\n')
+
           if self.tts:
             self.generate_tts(question, i, 'nova', 'question')
             self.generate_tts(answer, answer, 'onyx', 'answer')
@@ -50,9 +53,6 @@ class TestBase():
             answers.append(self.reverse_answer(int(answer)))
           else:
             answers.append(answer)
-
-          print(f'Question {i}: {question}')
-          print(f'Answer: {answer}\n')
 
     score: dict = self.score(answers)
     self.serialize(questions, answers, score)
@@ -99,9 +99,10 @@ class TestBase():
     if not os.path.exists(image_file_path):
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).images.generate(
         model="dall-e-3",
-        prompt=f"an illustration of the sentence: '{question}' in which the intensity of what is represented is: {answer}. in style of a rorschach test, icon style, {self.__class__.ID}, monochrome, no visible text, white background, absolutely no text",
+        prompt=f"an illustration of the sentence: '{question}' in which the intensity of what is represented is: {answer}. in style of a rorschach test, icon style, {self.__class__.ID}, monochrome, no visible text, white background, absolutely no text or number",
         size="1024x1024",
-        quality="standard",
+        quality="hd",
+        style="natural",
         n=1,
       )
       image_url = response.data[0].url
