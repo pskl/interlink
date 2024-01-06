@@ -20,13 +20,23 @@ Make sure an OpenAI API key is accessible in your environment
 
 `export OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxx`
 
-Examples:
+### Examples:
+
+#### Simple run
 
 `python main.py --model gpt-4 --test big5`
 
 `python main.py --model mistral --test pid5`
 
-Models supported:
+#### Generate voice samples for each message (in .mp3 format)
+
+`python main.py --model gpt-4 --tts 1`
+
+### Generate illustrations for each message (uses DALL-E 3 API)
+
+`python main.py --model gpt-4 --image 1`
+
+### Models supported
 
 - [x] gpt-3.5-turbo
 - [x] gpt-4
@@ -34,10 +44,11 @@ Models supported:
 - [x] llama2
 - [x] mistral
 
-Tests supported:
+### Tests supported
 
 - [x] [PID-5](https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM5_The-Personality-Inventory-For-DSM-5-Full-Version-Adult.pdf)
 - [x] [Big Five](https://openpsychometrics.org/tests/IPIP-BFFM/)
+- [x] [Dark Triad](https://openpsychometrics.org/tests/SD3/)
 
 ## Output
 
