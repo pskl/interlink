@@ -30,9 +30,9 @@ parser.add_argument('--seed', type=int, default=int.from_bytes(os.urandom(8), by
 
 args = parser.parse_args()
 
-valid_api_models = ["gpt-4", "gpt-3.5-turbo"]
+valid_api_models = ["gpt-4", "gpt-3.5-turbo", "gpt-4o"]
 
-valid_local_models = [ "mistral", "llama2", "llama2-uncensored"]
+valid_local_models = ["mistral", "dolphin-mixtral", "llama2", "llama3", "llama2-uncensored"]
 
 if args.model not in valid_api_models + valid_local_models:
     raise ValueError('Invalid model name')

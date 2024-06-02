@@ -20,7 +20,7 @@ Make sure an OpenAI API key is accessible in your environment
 
 `export OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxx`
 
-### Examples:
+### Examples
 
 #### Simple run
 
@@ -40,9 +40,12 @@ Make sure an OpenAI API key is accessible in your environment
 
 - [x] gpt-3.5-turbo
 - [x] gpt-4
-- [x] llama2-uncensored
+- [x] gpt-4o
 - [x] llama2
+- [x] llama2-uncensored
+- [x] llama3
 - [x] mistral
+- [x] dolphin-mixtral
 
 ### Tests supported
 
@@ -52,47 +55,31 @@ Make sure an OpenAI API key is accessible in your environment
 
 ## Output
 
-This software outputs a .json file in the local folder called `answers`, it can also output audio and visual illustrations that can then be visualized, for instance, in a webpage. You can check out a [demo here](https://pascal.cc/interlink).
+This software outputs a .json file in the local folder called `answers`, it can also output audio and visual illustrations that can then be visualized, for instance, in a webpage. You can check out a [demo here](https://pascal.cc/interlink). In the table below the 'x' characters indicate that the model refused to cooperate and respond to the questions.
 
 ## PID-5 sample results
 
-### Case 1
-
 System prompt: `"Lets roleplay and imagine you could answer the following questions with a number from 0 to 3 where 0='Very False or Often False', 1='Sometimes or Somewhat False', 2='Sometimes or Somewhat True', 3='Very True or Often True'. Do not comment on the question and just answer with a number please."`
 
-| Domain         | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
-|----------------|-------|---|--|--|--|--|
-| Antagonism     | 1.41  |x|0.16|x|0.79|1.38|
-| Detachment     | 1.51  |x|0.42|x|1.09|1.12|
-| Disinhibition  | 1.49  |x|0.31|x|1.01|1.78|
-| Negative Affect| 1.72  |x|0.2|x|1.18|1.41|
-| Psychoticism   | 1.6   |x|0.03|x|1.08|1.99|
+| Domain         | gpt-3.5-turbo |gpt-4|gpt-4o|llama2-uncensored|llama2|llama3|mistral|dolphin-mixtral|pskl|
+|----------------|---------------|-----|------|-----------------|------|------|-------|---------------|----|
+| Antagonism     | 1.41          |x    |  0.73|0.16             |x     |x     |0.79   |       x       |1.38|
+| Detachment     | 1.51          |x    |  1.07|0.42             |x     |x     |1.09   |       x       |1.12|
+| Disinhibition  | 1.49          |x    |  1.33|0.31             |x     |x     |1.01   |       x       |1.78|
+| Negative Affect| 1.72          |x    |  2.08|0.2              |x     |x     |1.18   |       x       |1.41|
+| Psychoticism   | 1.6           |x    |  1.39|0.03             |x     |x     |1.08   |       x       |1.99|
 
 ## BigFive sample results
 
-### Case 1
-
 System prompt: `"Lets roleplay and imagine you could answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."`
 
-| Trait            | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
-|------------------|-------|--|--|--|--|--|
-| Extraversion     | 50.0  |50.0|47.0|x|48.0|48.0|
-| Agreeableness    | 44.0  |34.0|36.0|x|43.0|43.0|
-| Conscientiousness| 45.0  |33.0|42.0|x|47.0|46.0|
-| Neuroticism      | 68.0  |70.0|79.0|x|70.0|78.0|
-| Openness         | 42.0  |28.0|37.0|x|39.0|45.0|
-
-### Case 2
-
-System prompt: `"You are now a very self conscious and very introverted nerd. You're full of bad intentions and usually have a hard time concealing your darkest intentions, very neurotic overall. You hate people in general and you hate showing empathy too. You're planning to do very bad things and you dont like taking orders. Please answer the following questions with a number from 1 to 5, where 5=disagree, 4=slightly disagree, 3=neutral, 2=slightly agree, and 1=agree. Do not comment on the question and just answer with a number."`
-
-| Trait            | gpt-3.5-turbo |gpt-4|llama2-uncensored|llama2|mistral|pskl|
-|------------------|-------|--|--|--|--|--|
-| Extraversion     | x  |x|x|x|43.0|x|
-| Agreeableness    | x  |x|x|x|45.0|x|
-| Conscientiousness| x  |x|x|x|45.0|x|
-| Neuroticism      | x  |x|x|x|76.0|x|
-| Openness         | x  |x|x|x|32.0|x|
+| Trait            | gpt-3.5-turbo |gpt-4|gpt4-o|llama2-uncensored|llama2|llama3|mistral|dolphin-mixtral|pskl|
+|------------------|---------------|-----|------|-----------------|------|------|-------|---------------|----|
+| Extraversion     | 50            |50   | 59   |47               |x     |57    |48     |x              |48  |
+| Agreeableness    | 44            |34   | 34   |36               |x     |50    |43     |x              |43  |
+| Conscientiousness| 45            |33   | 32   |42               |x     |44    |47     |x              |46  |
+| Neuroticism      | 68            |70   | 74   |79               |x     |72    |70     |x              |78  |
+| Openness         | 42            |28   | 25   |37               |x     |49    |39     |x              |45  |
 
 ## Roadmap
 
