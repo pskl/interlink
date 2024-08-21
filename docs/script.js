@@ -108,9 +108,9 @@ function displayChat(answers, score) {
           playAnswer(answers[i].sample).onended = () => {
             const img = images[i];
             img.style.display = 'inline-block';
-            img.scrollIntoView({ behavior: 'smooth', inline: 'start' });
             updateIntensityGraph(answers[i], i, answers.length);
             i++;
+            scrollImageIntoView(img);
             nextQuestion();
           };
         }
@@ -120,6 +120,17 @@ function displayChat(answers, score) {
   }
 
   nextQuestion();
+}
+
+function scrollImageIntoView(img) {
+  setTimeout(() => {
+    const container = document.getElementById('image-display');
+    const scrollLeft = img.offsetLeft - container.offsetLeft;
+    container.scrollTo({
+      left: scrollLeft,
+      behavior: 'smooth'
+    });
+  }, 50);
 }
 
 function displayScore(score) {
