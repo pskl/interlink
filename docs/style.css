@@ -136,7 +136,7 @@ html {
 #chat-container {
   position: fixed;
   top: 34vh;
-  bottom: 30vh;
+  bottom: 20vh;
   width: 100%;
   overflow-y: auto;
   padding-top: 2vh;

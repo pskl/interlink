@@ -1,7 +1,8 @@
 const folderFiles = {
   "interlink_mistral_big5": "test_8346320627440787020.json",
   "interlink_gpt-4_darktriad": "test_12232222970715529377.json",
-}
+  "interlink_dolphin-mixtral_darktriad": "test_13083007193134711326.json"
+};
 var folderPath;
 
 document.addEventListener('DOMContentLoaded', function () {
