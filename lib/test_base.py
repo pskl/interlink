@@ -88,7 +88,7 @@ class TestBase():
       response = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY")).audio.speech.create(
         model="tts-1",
         voice=voice,
-        input=text
+        input=str(text)
       )
       response.stream_to_file(speech_file_path)
 
