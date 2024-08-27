@@ -1,7 +1,7 @@
 const folderFiles = {
-  "interlink_mistral_big5": "test_8346320627440787020.json",
   "interlink_gpt-4_darktriad": "test_12232222970715529377.json",
-  "interlink_dolphin-mixtral_darktriad": "test_13083007193134711326.json"
+  "interlink_dolphin-mixtral_darktriad": "test_13083007193134711326.json",
+  "interlink_mistral_big5": "test_8346320627440787020.json"
 };
 var folderPath;
 
@@ -144,6 +144,19 @@ function displayScore(score) {
     scoreDiv.textContent = scoreText;
     container.appendChild(scoreDiv);
   }
+  displayBackButton();
+}
+
+function displayBackButton(){
+  const container = document.getElementById('chat-container');
+  const backButton = document.createElement('div');
+  backButton.textContent = '→ back to test selection';
+  backButton.classList.add('answer');
+  backButton.id = 'back-button';
+  backButton.addEventListener('click', () => {
+    location.reload();
+  });
+  container.appendChild(backButton);
 }
 
 function scrollToBottom(el) {

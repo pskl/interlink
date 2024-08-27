@@ -170,6 +170,10 @@ html {
   text-align: center;
 }
 
+#back-button {
+  width: 40%;
+}
+
 #image-display {
   position: fixed;
   bottom: 0;
