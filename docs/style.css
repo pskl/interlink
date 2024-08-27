@@ -172,6 +172,7 @@ html {
 
 #back-button {
   width: 40%;
+  cursor: pointer;
 }
 
 #image-display {
@@ -228,7 +229,7 @@ html {
   margin: 10px 0;
   cursor: pointer;
   font-family: 'Oswald', sans-serif;
-  font-size: 5vh;
+  font-size: 4vh;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -241,10 +242,38 @@ html {
   outline: none;
 }
 
+#start-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#start-logo {
+  width: 40vw;
+  filter: invert(1);
+}
+
+#explanation-text {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 3vw;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.separator {
+  border: none;
+  height: 2px;
+  background-color: white;
+  margin: 20px 0;
+  width: 100%;
+}
+
 #selectionHeading {
   color: white;
   text-align: center;
-  font-size: 8vw;
+  font-size: 6vw;
   margin-bottom: 20px;
   font-weight: 600;
 }
