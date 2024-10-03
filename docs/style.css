@@ -249,31 +249,31 @@ html {
 }
 
 #start-logo {
-  width: 40vw;
+  width: 20vw;
   filter: invert(1);
 }
 
 #explanation-text {
   text-align: center;
   color: white;
-  margin-bottom: 20px;
-  font-size: 3vw;
+  margin-bottom: 10px;
+  font-size: 2vw;
   padding-right: 20px;
   padding-left: 20px;
 }
 
 .separator {
   border: none;
-  height: 2px;
+  height: 3px;
   background-color: white;
-  margin: 20px 0;
+  margin: 15px 0;
   width: 100%;
 }
 
 #selectionHeading {
   color: white;
   text-align: center;
-  font-size: 6vw;
+  font-size: 3vw;
   margin-bottom: 20px;
   font-weight: 600;
 }
